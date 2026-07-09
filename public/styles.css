@@ -76,17 +76,44 @@ a {
   margin: 26px 0 48px;
 }
 
-.logo-symbol,
-.brand-mark {
-  display: grid;
-  width: 64px;
-  height: 64px;
-  place-items: center;
+.app-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 14px;
+  color: #60748e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.footer-dev {
+  color: var(--navy);
+}
+
+.footer-rights {
+  color: var(--muted);
+}
+
+.auth-footer {
+  grid-column: 1 / -1;
+  align-self: end;
+  padding-top: 4px;
+}
+
+.auth-footer .footer-dev,
+.auth-footer .footer-rights {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.auth-logo img {
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
   border-radius: 8px;
   background: #ffffff;
-  color: var(--navy);
-  font-weight: 900;
-  font-size: 1.75rem;
+  padding: 8px;
 }
 
 .auth-logo strong,
@@ -310,11 +337,11 @@ a {
   text-align: center;
 }
 
-.brand-mark {
-  width: 72px;
-  height: 72px;
-  background: #edf6ff;
-  color: var(--blue);
+.brand img {
+  width: 132px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .brand strong {
@@ -416,6 +443,11 @@ a {
 .command-center {
   margin-left: 286px;
   padding: 28px 36px;
+}
+
+.dashboard-footer {
+  margin-top: 26px;
+  padding: 18px 10px 4px;
 }
 
 .top-card {
