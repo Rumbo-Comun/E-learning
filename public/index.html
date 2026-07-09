@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Demo de plataforma LMS institucional con login, centro de mando y modulos administrativos."
+    />
+    <title>NOVOMEDIA LMS Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="auth-screen" id="authScreen" aria-label="Inicio de sesion">
+      <div class="auth-visual">
+        <div class="system-label">Entorno institucional de formacion tecnica</div>
+        <div class="auth-logo">
+          <span class="logo-symbol">N</span>
+          <strong>NOVOMEDIA</strong>
+          <small>LMS institucional</small>
+        </div>
+        <h1>Acceso seguro al entorno academico y operativo.</h1>
+        <p>
+          Centraliza cursos, contenidos, progreso, evaluaciones, simuladores y soporte desde una
+          misma plataforma.
+        </p>
+      </div>
+
+      <form class="login-card" id="loginForm">
+        <p class="eyebrow">Administracion</p>
+        <h2>Iniciar sesion</h2>
+        <p class="login-copy">Ingresa con el usuario demo para acceder al centro de mando.</p>
+
+        <label>
+          Correo institucional
+          <input type="email" value="admin@lms.local" autocomplete="email" required />
+        </label>
+
+        <label>
+          Contrasena
+          <input type="password" value="demo1234" autocomplete="current-password" required />
+        </label>
+
+        <div class="login-options">
+          <label class="check-row">
+            <input type="checkbox" checked />
+            Recordar acceso
+          </label>
+          <a href="#recuperar">Recuperar clave</a>
+        </div>
+
+        <button class="primary-action full" type="submit">Entrar al panel</button>
+        <small class="demo-hint">Demo: admin@lms.local / demo1234</small>
+      </form>
+    </section>
+
+    <section class="dashboard-screen is-hidden" id="dashboardScreen">
+      <aside class="sidebar" aria-label="Navegacion principal">
+        <div>
+          <p class="system-label">Entorno institucional de formacion tecnica</p>
+          <a class="brand" href="#panel" aria-label="NOVOMEDIA inicio">
+            <span class="brand-mark">N</span>
+            <span>
+              <strong>NOVOMEDIA</strong>
+              <small>LMS</small>
+            </span>
+          </a>
+          <p class="sidebar-copy">
+            Accede a cursos, contenidos, progreso, evaluaciones y simuladores desde una misma
+            plataforma.
+          </p>
+        </div>
+
+        <div class="role-card">
+          <span>Rol activo</span>
+          <strong>Administrador</strong>
+          <small>admin@lms.local</small>
+        </div>
+
+        <nav class="nav-list" id="sideNav">
+          <button class="nav-item active" type="button" data-module="panel">Panel principal</button>
+          <button class="nav-item" type="button" data-module="usuarios">Usuarios</button>
+          <button class="nav-item" type="button" data-module="institucion">Institucion</button>
+          <button class="nav-item" type="button" data-module="academico">Oferta academica</button>
+          <button class="nav-item" type="button" data-module="evaluaciones">Evaluaciones</button>
+          <button class="nav-item" type="button" data-module="resultados">Resultados</button>
+          <button class="nav-item" type="button" data-module="simuladores">Simuladores</button>
+          <button class="nav-item" type="button" data-module="soporte">Soporte</button>
+          <button class="nav-item" type="button" data-module="actividad">Actividad y accesos</button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="language-switch" aria-label="Selector de idioma">
+            <button class="active" type="button" data-lang="es">ES</button>
+            <button type="button" data-lang="en">EN</button>
+          </div>
+          <button class="logout-button" id="logoutButton" type="button">Cerrar sesion</button>
+        </div>
+      </aside>
+
+      <main class="command-center">
+        <header class="top-card">
+          <button class="icon-button menu-toggle" type="button" aria-label="Mostrar navegacion">Menu</button>
+          <div>
+            <p class="eyebrow" id="moduleEyebrow">Administracion</p>
+            <h1 id="moduleTitle">Centro de mando</h1>
+            <p id="moduleDescription">
+              Centro de mando operativo para acceso, actividad academica, soporte y continuidad institucional.
+            </p>
+          </div>
+        </header>
+
+        <section class="module-view dashboard-grid" id="panelView" data-view="panel">
+          <article class="operation-card">
+            <div class="operation-overlay">
+              <p class="eyebrow light">Centro de mando</p>
+              <h2>Operacion diaria bajo control</h2>
+              <p>El LMS mantiene 2 matriculas activas, 5 accesos activos y progreso promedio en 4.6%.</p>
+
+              <div class="status-callout">
+                <span>Estado del turno</span>
+                <strong>Ritmo academico requiere seguimiento.</strong>
+                <small>Progreso promedio en 4.6% y 0 simuladores cerrados.</small>
+              </div>
+
+              <div class="kpi-row" id="kpiRow"></div>
+            </div>
+          </article>
+
+          <aside class="priority-card">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Prioridades</p>
+                <h2>Lo que pide intervencion ahora</h2>
+              </div>
+              <span class="pill">Hoy</span>
+            </div>
+            <div class="priority-list" id="priorityList"></div>
+          </aside>
+
+          <section class="panel queue-panel">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Cola operativa</p>
+                <h2>Intervenciones sugeridas para este turno</h2>
+              </div>
+              <small>Lectura estable, contenido dinamico segun actividad real.</small>
+            </div>
+            <div class="intervention-list" id="interventionList"></div>
+          </section>
+
+          <section class="panel access-panel">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Accesos rapidos</p>
+                <h2>Modulos con contexto inmediato</h2>
+              </div>
+              <small>Microestado operativo</small>
+            </div>
+            <div class="module-grid" id="moduleGrid"></div>
+          </section>
+        </section>
+
+        <section class="module-view is-hidden" id="usuariosView" data-view="usuarios">
+          <div class="user-summary" id="userSummary"></div>
+
+          <div class="user-toolbar">
+            <div class="filter-tabs" id="userStatusTabs" aria-label="Filtro por estado">
+              <button class="filter-tab active" type="button" data-status="todos">Todo</button>
+              <button class="filter-tab" type="button" data-status="pendiente">Pendientes</button>
+              <button class="filter-tab" type="button" data-status="activo">Activos</button>
+              <button class="filter-tab" type="button" data-status="inhabilitado">Inhabilitados</button>
+            </div>
+            <button class="primary-action compact" type="button" id="newUserButton">+ Nuevo usuario</button>
+          </div>
+
+          <div class="users-layout">
+            <section class="panel directory-panel">
+              <div class="section-heading">
+                <div>
+                  <h2 id="directoryTitle">Directorio</h2>
+                  <small>Busca por nombre, documento o correo.</small>
+                </div>
+                <button class="text-button" type="button" id="clearUserFilters">Limpiar</button>
+              </div>
+
+              <div class="user-filters">
+                <label>
+                  Buscar
+                  <input id="userSearch" type="search" placeholder="Nombre, documento o correo" />
+                </label>
+                <select id="roleFilter" aria-label="Filtrar por rol">
+                  <option value="todos">Todos los roles</option>
+                  <option value="Estudiante">Estudiantes</option>
+                  <option value="Profesor">Profesores</option>
+                  <option value="Administrador">Administradores</option>
+                </select>
+                <select id="institutionFilter" aria-label="Filtrar por institucion">
+                  <option value="todas">Todas las instituciones</option>
+                </select>
+              </div>
+
+              <div class="user-list" id="userList"></div>
+            </section>
+
+            <aside class="panel profile-panel" id="profilePanel"></aside>
+          </div>
+        </section>
+
+        <section class="module-view is-hidden" id="institucionView" data-view="institucion">
+          <div class="institution-summary" id="institutionSummary"></div>
+
+          <div class="institution-layout">
+            <section class="panel institution-list-panel">
+              <div class="section-heading">
+                <div>
+                  <h2 id="institutionListTitle">Instituciones</h2>
+                  <small>Gestiona instituciones, sedes y sub-sedes.</small>
+                </div>
+                <button class="primary-action compact" type="button" id="newInstitutionButton">+ Nueva</button>
+              </div>
+              <div class="institution-list" id="institutionList"></div>
+            </section>
+
+            <section class="institution-detail" id="institutionDetail"></section>
+          </div>
+        </section>
+
+        <section class="module-view is-hidden" id="academicoView" data-view="academico">
+          <div class="academic-layout">
+            <section class="academic-step">
+              <div class="step-badge">1</div>
+              <div class="section-heading">
+                <div>
+                  <h2>Categoria</h2>
+                  <small>Selecciona una categoria.</small>
+                </div>
+              </div>
+
+              <select id="academicCategorySelect" aria-label="Selecciona una categoria"></select>
+              <div class="selected-category-card" id="selectedCategoryCard"></div>
+
+              <form class="inline-create academic-form" id="categoryForm">
+                <p class="eyebrow">Nueva categoria</p>
+                <input id="categoryNameInput" type="text" placeholder="Escribe el nombre de la categoria" required />
+                <input id="categoryCodeInput" type="text" placeholder="Codigo de categoria" required />
+                <button class="dark-action" type="submit">Crear categoria</button>
+              </form>
+            </section>
+
+            <section class="academic-step">
+              <div class="step-badge">2</div>
+              <div class="section-heading">
+                <div>
+                  <h2>Curso</h2>
+                  <small>Cursos existentes</small>
+                </div>
+              </div>
+
+              <div class="course-list-admin" id="academicCourseList"></div>
+
+              <form class="inline-create academic-form" id="courseForm">
+                <p class="eyebrow">Nuevo curso</p>
+                <input id="courseNameInput" type="text" placeholder="Escribe el nombre del curso" required />
+                <input id="courseCodeInput" type="text" placeholder="Codigo del curso" required />
+                <input id="courseModulesInput" type="number" min="0" value="0" placeholder="Modulos" required />
+                <button class="dark-action" type="submit">Crear curso</button>
+              </form>
+            </section>
+          </div>
+        </section>
+
+        <section class="module-view is-hidden" id="evaluacionesView" data-view="evaluaciones">
+          <div class="evaluation-toolbar">
+            <label>
+              Buscar estudiante
+              <input id="evaluationSearch" type="search" placeholder="Documento, nombres o correo..." />
+            </label>
+            <div class="language-switch light-switch" aria-label="Selector de idioma evaluaciones">
+              <button class="active" type="button" data-lang="es">ES</button>
+              <button type="button" data-lang="en">EN</button>
+            </div>
+          </div>
+
+          <div class="evaluation-summary" id="evaluationSummary"></div>
+
+          <div class="evaluation-grid">
+            <section class="panel friction-panel">
+              <div class="section-heading">
+                <div>
+                  <h2>Quizzes con mas friccion</h2>
+                  <small>Evaluaciones donde mas se tropieza el estudiantado.</small>
+                </div>
+              </div>
+              <div class="friction-list" id="frictionList"></div>
+            </section>
+
+            <section class="panel distribution-panel">
+              <div class="section-heading">
+                <div>
+                  <h2>Distribucion evaluativa</h2>
+                  <small>Proporcion de aprobados, reprobados y reintentos.</small>
+                </div>
+              </div>
+              <div class="distribution-box" id="distributionBox"></div>
+            </section>
+
+            <section class="panel attempts-panel">
+              <div class="section-heading">
+                <div>
+                  <h2>Estudiantes con mas intentos</h2>
+                  <small>Casos donde conviene revisar acompanamiento o dificultad del quiz.</small>
+                </div>
+              </div>
+              <div class="student-attempt-list" id="studentAttemptList"></div>
+            </section>
+
+            <section class="panel enable-panel">
+              <div class="section-heading">
+                <div>
+                  <h2>Habilitar nueva oportunidad</h2>
+                  <small>Abre intentos extra cuando ya se justifica.</small>
+                </div>
+              </div>
+              <form class="enable-form" id="enableAttemptForm">
+                <label>
+                  Evaluacion
+                  <select id="enableEvaluationSelect"></select>
+                </label>
+                <label>
+                  Estudiante
+                  <input id="enableStudentInput" type="text" placeholder="Buscar por documento, nombres o correo..." required />
+                </label>
+                <label>
+                  Razon
+                  <textarea id="enableReasonInput" placeholder="Indica el motivo de esta habilitacion" required></textarea>
+                </label>
+                <label>
+                  Intentos extra
+                  <input id="enableExtraInput" type="number" min="1" value="1" required />
+                </label>
+                <button class="dark-action" type="submit">Guardar habilitacion</button>
+              </form>
+            </section>
+
+            <section class="panel recent-panel">
+              <div class="section-heading">
+                <div>
+                  <h2>Intentos recientes</h2>
+                  <small>Lectura operativa de los intentos mas recientes en la vista actual.</small>
+                </div>
+              </div>
+              <div class="attempt-table" id="attemptTable"></div>
+            </section>
+
+            <section class="panel habilitation-panel">
+              <div class="section-heading">
+                <div>
+                  <h2>Habilitaciones activas</h2>
+                  <small>Nuevas oportunidades abiertas actualmente sobre la base de usuarios.</small>
+                </div>
+              </div>
+              <div class="habilitation-list" id="habilitationList"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="module-view is-hidden" id="resultadosView" data-view="resultados">
+          <div id="resultsSearchView">
+            <div class="results-search-layout">
+              <section class="panel results-search-panel">
+                <div class="section-heading">
+                  <div>
+                    <h2>Busqueda directa</h2>
+                    <small>Busca por nombre, correo o documento.</small>
+                  </div>
+                </div>
+                <label>
+                  Estudiante
+                  <input id="resultsStudentSearch" type="search" placeholder="Nombre, correo o documento" />
+                </label>
+                <div class="results-suggestions" id="resultsSuggestions"></div>
+              </section>
+
+              <aside class="panel results-empty-card">
+                <p class="eyebrow">Vista</p>
+                <p>Selecciona un estudiante para abrir su ficha completa.</p>
+              </aside>
+            </div>
+          </div>
+
+          <div class="is-hidden" id="resultsDetailView">
+            <section class="results-hero-card">
+              <div class="profile-head clean-head">
+                <span class="avatar-large" id="resultAvatar">AS</span>
+                <div>
+                  <p class="eyebrow">Estudiante</p>
+                  <h2 id="resultStudentName">ANDRES SALAS</h2>
+                  <p id="resultStudentEmail">andresalas@lms.local</p>
+                  <div class="profile-tags" id="resultStudentTags"></div>
+                </div>
+              </div>
+              <button class="secondary-action compact" type="button" id="backToResultsSearch">Volver</button>
+            </section>
+
+            <section class="panel quick-result-card" id="quickResultCard"></section>
+
+            <section class="result-kpi-grid" id="resultKpiGrid"></section>
+
+            <div class="result-tabs" id="resultTabs">
+              <button class="filter-tab active" type="button" data-result-tab="resumen">Resumen</button>
+              <button class="filter-tab" type="button" data-result-tab="inscripciones">Inscripciones</button>
+              <button class="filter-tab" type="button" data-result-tab="rutas">Rutas</button>
+              <button class="filter-tab" type="button" data-result-tab="evaluaciones">Evaluaciones</button>
+            </div>
+
+            <section class="results-content-grid" id="resultsContentGrid"></section>
+          </div>
+        </section>
+
+        <section class="module-view is-hidden" id="simuladoresView" data-view="simuladores">
+          <div class="simulator-summary" id="simulatorSummary"></div>
+
+          <section class="panel simulator-inventory-panel">
+            <div class="section-heading">
+              <div>
+                <h2>Inventario de simuladores</h2>
+                <small id="simulatorCountLabel">Mostrando 13 de 13</small>
+              </div>
+              <div class="simulator-actions">
+                <span class="tag">Constructor abierto</span>
+                <button class="secondary-action compact" type="button" id="toggleSimulatorBuilder">Ocultar</button>
+              </div>
+            </div>
+
+            <label class="simulator-search">
+              <input id="simulatorSearch" type="search" placeholder="Busca por nombre, slug, tipo o tecnologia..." />
+            </label>
+
+            <div class="simulator-grid" id="simulatorGrid"></div>
+          </section>
+        </section>
+
+        <section class="module-view is-hidden" id="soporteView" data-view="soporte">
+          <div class="support-summary" id="supportSummary"></div>
+
+          <section class="support-layout">
+            <div class="support-main">
+              <section class="panel support-create-panel">
+                <div class="section-heading">
+                  <div>
+                    <h2>Reportar afectacion</h2>
+                    <small>Selecciona el area, describe el impacto y crea un ticket visible para el equipo.</small>
+                  </div>
+                  <button class="primary-action compact" type="button" id="quickTicketButton">+ Ticket rapido</button>
+                </div>
+
+                <div class="affected-area-grid" id="affectedAreaGrid"></div>
+
+                <form class="support-form" id="supportTicketForm">
+                  <div class="form-grid">
+                    <label>
+                      Titulo del incidente
+                      <input id="ticketTitleInput" type="text" placeholder="Ej. No carga evaluacion diagnostica" required />
+                    </label>
+                    <label>
+                      Area afectada
+                      <select id="ticketAreaInput" required></select>
+                    </label>
+                    <label>
+                      Severidad
+                      <select id="ticketSeverityInput" required>
+                        <option value="alta">Alta</option>
+                        <option value="media" selected>Media</option>
+                        <option value="baja">Baja</option>
+                      </select>
+                    </label>
+                    <label>
+                      Reportado por
+                      <input id="ticketReporterInput" type="text" value="admin@lms.local" required />
+                    </label>
+                  </div>
+                  <label>
+                    Descripcion
+                    <textarea id="ticketDescriptionInput" placeholder="Describe que ocurre, a quienes afecta y desde cuando." required></textarea>
+                  </label>
+                  <button class="dark-action" type="submit">Crear ticket de afectacion</button>
+                </form>
+              </section>
+
+              <section class="panel ticket-list-panel">
+                <div class="section-heading">
+                  <div>
+                    <h2>Tickets de afectacion</h2>
+                    <small id="ticketCountLabel">Vista operativa de soporte.</small>
+                  </div>
+                  <div class="ticket-filters">
+                    <select id="ticketStatusFilter" aria-label="Filtrar por estado">
+                      <option value="todos">Todos</option>
+                      <option value="abierto">Abiertos</option>
+                      <option value="en_revision">En revision</option>
+                      <option value="resuelto">Resueltos</option>
+                    </select>
+                    <input id="ticketSearchInput" type="search" placeholder="Buscar ticket..." />
+                  </div>
+                </div>
+                <div class="ticket-list" id="ticketList"></div>
+              </section>
+            </div>
+
+            <aside class="panel ticket-detail-panel" id="ticketDetailPanel"></aside>
+          </section>
+        </section>
+
+        <section class="module-view is-hidden" id="actividadView" data-view="actividad">
+          <div class="activity-summary" id="activitySummary"></div>
+
+          <section class="activity-layout">
+            <div class="activity-main">
+              <section class="panel activity-filter-panel">
+                <div class="section-heading">
+                  <div>
+                    <h2>Logs de actividad</h2>
+                    <small>Filtra acciones de usuarios dentro de la plataforma.</small>
+                  </div>
+                  <button class="primary-action compact" type="button" id="downloadActivityReport">Descargar informe</button>
+                </div>
+
+                <div class="activity-filters">
+                  <input id="activitySearchInput" type="search" placeholder="Buscar usuario, correo, accion o modulo..." />
+                  <select id="activityUserFilter" aria-label="Filtrar por usuario">
+                    <option value="todos">Todos los usuarios</option>
+                  </select>
+                  <select id="activityTypeFilter" aria-label="Filtrar por tipo">
+                    <option value="todos">Todos los tipos</option>
+                    <option value="login">Login</option>
+                    <option value="curso">Curso</option>
+                    <option value="evaluacion">Evaluacion</option>
+                    <option value="simulador">Simulador</option>
+                    <option value="soporte">Soporte</option>
+                    <option value="admin">Administracion</option>
+                  </select>
+                  <select id="activityDateFilter" aria-label="Filtrar por fecha">
+                    <option value="todos">Todas las fechas</option>
+                    <option value="hoy">Hoy</option>
+                    <option value="ayer">Ayer</option>
+                    <option value="semana">Esta semana</option>
+                  </select>
+                </div>
+              </section>
+
+              <section class="panel activity-table-panel">
+                <div class="section-heading">
+                  <div>
+                    <h2>Eventos registrados</h2>
+                    <small id="activityCountLabel">Vista de auditoria.</small>
+                  </div>
+                </div>
+                <div class="activity-table" id="activityTable"></div>
+              </section>
+            </div>
+
+            <aside class="panel activity-detail-panel" id="activityDetailPanel"></aside>
+          </section>
+        </section>
+      </main>
+    </section>
+
+    <div class="modal-layer is-hidden" id="userModal" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+      <form class="modal-card" id="userForm">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Usuarios</p>
+            <h2 id="userModalTitle">Nuevo usuario</h2>
+          </div>
+          <button class="icon-close" type="button" id="closeUserModal" aria-label="Cerrar">x</button>
+        </div>
+
+        <input type="hidden" id="editingUserId" />
+        <div class="form-grid">
+          <label>
+            Nombre completo
+            <input id="userNameInput" type="text" required />
+          </label>
+          <label>
+            Correo
+            <input id="userEmailInput" type="email" required />
+          </label>
+          <label>
+            Documento
+            <input id="userDocumentInput" type="text" required />
+          </label>
+          <label>
+            Telefono
+            <input id="userPhoneInput" type="text" required />
+          </label>
+          <label>
+            Rol
+            <select id="userRoleInput" required>
+              <option>Estudiante</option>
+              <option>Profesor</option>
+              <option>Administrador</option>
+            </select>
+          </label>
+          <label>
+            Institucion
+            <select id="userInstitutionInput" required></select>
+          </label>
+          <label>
+            Sitio
+            <input id="userSiteInput" type="text" required />
+          </label>
+          <label>
+            Estado
+            <select id="userStatusInput" required>
+              <option value="activo">Activo</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="inhabilitado">Inhabilitado</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button class="secondary-action" type="button" id="cancelUserModal">Cancelar</button>
+          <button class="primary-action compact" type="submit">Guardar usuario</button>
+        </div>
+      </form>
+    </div>
+
+    <div
+      class="modal-layer is-hidden"
+      id="institutionModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="institutionModalTitle"
+    >
+      <form class="modal-card" id="institutionForm">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Instituciones</p>
+            <h2 id="institutionModalTitle">Nueva institucion</h2>
+          </div>
+          <button class="icon-close" type="button" id="closeInstitutionModal" aria-label="Cerrar">x</button>
+        </div>
+
+        <input type="hidden" id="institutionFormMode" />
+        <input type="hidden" id="institutionEntityId" />
+        <input type="hidden" id="institutionParentId" />
+        <div class="form-grid">
+          <label>
+            Nombre
+            <input id="institutionNameInput" type="text" required />
+          </label>
+          <label>
+            Codigo
+            <input id="institutionCodeInput" type="text" required />
+          </label>
+          <label>
+            Direccion
+            <input id="institutionAddressInput" type="text" required />
+          </label>
+          <label>
+            Tipo
+            <select id="institutionTypeInput" required>
+              <option value="institucion">Institucion</option>
+              <option value="sede">Sede</option>
+              <option value="subsede">Sub-sede</option>
+              <option value="laboratorio">Laboratorio</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button class="secondary-action" type="button" id="cancelInstitutionModal">Cancelar</button>
+          <button class="primary-action compact" type="submit">Guardar estructura</button>
+        </div>
+      </form>
+    </div>
+
+    <div
+      class="modal-layer is-hidden"
+      id="simulatorModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="simulatorModalTitle"
+    >
+      <div class="modal-card simulator-modal-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Simulador</p>
+            <h2 id="simulatorModalTitle">Ejecutando simulador</h2>
+          </div>
+          <button class="icon-close" type="button" id="closeSimulatorModal" aria-label="Cerrar">x</button>
+        </div>
+        <div class="simulator-launch-body" id="simulatorLaunchBody"></div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "panama-lms-demo",
+  "version": "1.0.0",
+  "description": "Demo LMS para presentar cursos, progreso, tareas y calendario en Railway.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "lms",
+    "demo",
+    "railway",
+    "education"
+  ],
+  "license": "MIT"
+}
